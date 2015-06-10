@@ -16,6 +16,27 @@ Think [FGRibreau/cancelable] for groups or [substack/node-toss] without timeouts
 [david]: https://david-dm.org/eush77/cancelable-group
 [david-badge]: https://david-dm.org/eush77/cancelable-group.png
 
+## Example
+
+```js
+var cancelableGroup = require('cancelable-group');
+
+var group = cancelableGroup();
+
+asyncFunction1(arg1, arg2, group(function (err, data) {
+  // Won't fire after cancel() call.
+}));
+
+asyncFunction2(arg1, arg2, group(function (err, data) {
+  // Won't fire after cancel() call.
+}));
+
+someOtherFunction(function () {
+  // ...
+  group.cancel();
+}));
+```
+
 ## API
 
 ### `group = cancelableGroup()`
